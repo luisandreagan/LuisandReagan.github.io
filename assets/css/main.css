@@ -487,10 +487,10 @@ h6 {
 
 iframe {
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  height: 779px; /* Full height */
 }
 
-@media (max-width: 1279px) {
+@media (max-width: 200px) {
 
 
   .navbar {
