@@ -482,13 +482,13 @@ h6 {
 
 
 .iframe-container {
-  width: 90%;
-  height: 800px;
+  width: 100%;
+  height: 1800px;
 }
 
 iframe {
-  width: 90%;
-  height: 800px;
+  width: 100%;
+  height: 1800px;
 }
 .scroll-container {
   height: 100%;
