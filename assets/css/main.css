@@ -490,7 +490,7 @@ iframe {
   height: 779px; /* Full height */
 }
 
-@media (max-width: 200px) {
+@media (max-width: 350px) {
 
 
   .navbar {
