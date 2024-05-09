@@ -482,14 +482,14 @@ h6 {
 .iframe-container {
   width: 100%;
   height: 100%;
-  overflow-y: scroll; /* Always show vertical scrollbar */
 }
+
 iframe {
   width: 100%; /* Full width */
   height: 779px; /* Full height */
 }
 
-@media (max-width: 400px) {
+@media (max-width: 1400px) {
 
 
   .navbar {
