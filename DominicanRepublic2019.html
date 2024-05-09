@@ -112,7 +112,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
             <h2>Dominican Republic 2019</h2>
-          <p>20</p>
+          <p>21</p>
 
            <!--<a class="cta-btn" href="contact.html">Available for hire</a>--> 
 
@@ -127,17 +127,20 @@
     </div>
     
     <script>
-    // Enable scrolling inside iframe on mobile without requiring click
-    window.onload = function() {
-      var iframe = document.getElementById('myIframe');
-      if(iframe) {
-        iframe.onload = function() {
-          var doc = iframe.contentDocument || iframe.contentWindow.document;
-          doc.body.style.overflow = 'auto';
+      // Enable scrolling inside iframe on iOS without requiring click
+      document.body.addEventListener('touchstart', function(e) {
+        var iframe = document.getElementById('myIframe');
+        if(iframe && e.touches.length === 1) {
+          var startY = e.touches[0].pageY;
+          var scrollY = iframe.contentWindow.scrollY;
+      
+          // Check if the touch event occurred at the top of the document and scroll the iframe if necessary
+          if (scrollY === 0 && startY < 100) {
+            iframe.contentWindow.scrollTo(0, 1); // Scroll down 1 pixel
+          }
         }
-      }
-    };
-    </script>
+      }, { passive: true });
+      </script>
 
 
 
