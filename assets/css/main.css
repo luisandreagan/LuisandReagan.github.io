@@ -24,15 +24,17 @@
   --color-secondary: #161718;
 }
 
+iframe {
+  max-width: 100%;
+  width: 100%;
+}
+
 /* Smooth scroll behavior */
 :root {
   scroll-behavior: smooth;
 }
 
-iframe {
-  max-width: 100%;
-  width: 100%;
-}
+
 
 /*--------------------------------------------------------------
 # General
@@ -478,6 +480,12 @@ h6 {
 # Mobile Navigation
 --------------------------------------------------------------*/
 @media (max-width: 1279px) {
+
+  iframe {
+    max-width: 100%;
+    width: 100%;
+  }
+  
   .navbar {
     position: fixed;
     top: 0;
