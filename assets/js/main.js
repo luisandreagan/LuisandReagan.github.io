@@ -4,7 +4,39 @@
 * Updated: Mar 17 2024 with Bootstrap v5.3.3
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
+
+
 */
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var container = document.querySelector('.scrollable-container');
+  var iframe = document.getElementById('myIframe');
+
+  var startY;
+
+  container.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      startY = e.touches[0].pageY;
+    }
+  }, { passive: true });
+
+  container.addEventListener('touchmove', function(e) {
+    if (e.touches.length === 1 && startY !== undefined) {
+      var deltaY = e.touches[0].pageY - startY;
+      startY = e.touches[0].pageY;
+
+      // If the iframe content is at the top and the user is scrolling up, prevent default to allow outer container scrolling
+      if (iframe.contentWindow.pageYOffset === 0 && deltaY > 0) {
+        e.preventDefault();
+      }
+      // If the iframe content is at the bottom and the user is scrolling down, prevent default to allow outer container scrolling
+      else if (iframe.contentWindow.document.body.scrollHeight - iframe.contentWindow.document.body.clientHeight === iframe.contentWindow.pageYOffset && deltaY < 0) {
+        e.preventDefault();
+      }
+    }
+  }, { passive: false });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   "use strict";

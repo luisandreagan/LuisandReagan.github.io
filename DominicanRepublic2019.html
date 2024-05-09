@@ -112,7 +112,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-lg-6 text-center">
             <h2>Dominican Republic 2019</h2>
-          <p>21</p>
+          <p>22</p>
 
            <!--<a class="cta-btn" href="contact.html">Available for hire</a>--> 
 
@@ -127,19 +127,34 @@
     </div>
     
     <script>
-      // Enable scrolling inside iframe on iOS without requiring click
-      document.body.addEventListener('touchstart', function(e) {
-        var iframe = document.getElementById('myIframe');
-        if(iframe && e.touches.length === 1) {
-          var startY = e.touches[0].pageY;
-          var scrollY = iframe.contentWindow.scrollY;
-      
-          // Check if the touch event occurred at the top of the document and scroll the iframe if necessary
-          if (scrollY === 0 && startY < 100) {
-            iframe.contentWindow.scrollTo(0, 1); // Scroll down 1 pixel
-          }
-        }
-      }, { passive: true });
+document.addEventListener('DOMContentLoaded', function() {
+  var container = document.querySelector('.scrollable-container');
+  var iframe = document.getElementById('myIframe');
+
+  var startY;
+
+  container.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      startY = e.touches[0].pageY;
+    }
+  }, { passive: true });
+
+  container.addEventListener('touchmove', function(e) {
+    if (e.touches.length === 1 && startY !== undefined) {
+      var deltaY = e.touches[0].pageY - startY;
+      startY = e.touches[0].pageY;
+
+      // If the iframe content is at the top and the user is scrolling up, prevent default to allow outer container scrolling
+      if (iframe.contentWindow.pageYOffset === 0 && deltaY > 0) {
+        e.preventDefault();
+      }
+      // If the iframe content is at the bottom and the user is scrolling down, prevent default to allow outer container scrolling
+      else if (iframe.contentWindow.document.body.scrollHeight - iframe.contentWindow.document.body.clientHeight === iframe.contentWindow.pageYOffset && deltaY < 0) {
+        e.preventDefault();
+      }
+    }
+  }, { passive: false });
+});
       </script>
 
 
