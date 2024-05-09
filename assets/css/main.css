@@ -34,16 +34,6 @@ iframe {
   scroll-behavior: smooth;
 }
 
-.iframe-container {
-  width: 1300px; /* Adjust width as needed */
-  height: 1200px; /* Adjust height as needed */
-  overflow: hidden; /* Hide overflow content */
-}
-
-iframe {
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-}
 
 /*--------------------------------------------------------------
 # General
