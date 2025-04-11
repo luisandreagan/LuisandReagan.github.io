@@ -51,48 +51,16 @@
       </a>
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-           <!-- <li><a href="about.html">About</a></li>-->
-          <li class="dropdown"><a href="#" class="active"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="DominicanRepublic2019.html">Dominican Republic 2019</a></li>
-              <li><a href="Toronto2019.html">Toronto 2019</a></li>
-              <li><a href="Chicago2019.html">Chicago 2019</a></li>
-              <li><a href="Denver2019.html">Denver 2019</a></li>
-              <li><a href="Zion2018.html">Zion 2018</a></li>
-              <li><a href="Seattle2021.html">Seattle 2021</a></li>
-              <li><a href="StThomas2021.html">St Thomas 2021</a></li>
-              <li><a href="KingsCanyon2022.html">Kings Canyon 2022</a></li>
-              <li><a href="DominicanRepublic2022.html">Dominican Republic 2022</a></li>
-              <li><a href="Rome2023.html">Rome 2023</a></li>
-              <li><a href="ColombiaMedellin2023.html">Colombia Medellin 2023</a></li>
-              <li><a href="Lidia30.html">Lidia's 30th</a></li>
-              <li><a href="DominicanRepublicCruise2024.html">First Cruise DR 2024</a></li>
-              <li><a href="Switerland2024.html">Switerland 2024</a></li>
-              <li><a href="Dubai2024.html">Dubai 2024</a></li>
-              <!--<li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>-->
-            <!-- <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 3</a></li>-->
-                </ul>
-              </li>
-            </ul>
-          </li>
-         <!-- <li><a href="services.html">Services</a></li>
-          <li><a href="contact.html">Contact</a></li>-->
-        </ul>
-      </nav><!-- .navbar -->
+        <div id="navbar-placeholder"></div>
+
+        <script>
+          fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById('navbar-placeholder').innerHTML = data;
+            });
+        </script>
+        
 
       <div class="header-social-links">
         <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
