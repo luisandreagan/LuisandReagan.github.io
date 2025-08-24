@@ -12,32 +12,7 @@
 --------------------------------------------------------------*/
 /* Fonts */
 
-/* Center top-level nav items on desktop */
-@media (min-width: 992px) {
-  /* Let the nav span the row so it can center its contents */
-  #navbar { width: 100%; }
 
-  /* Center only the top-level <li> items (Home, Gallery) */
-  #navbar > ul {
-    display: flex;
-    align-items: center;
-    justify-content: center;   /* <-- centers the two items */
-    gap: 1.25rem;              /* spacing between items; tweak if needed */
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Keep dropdown menus aligned normally (not centered) */
-  #navbar > ul > li.dropdown > ul {
-    display: block;            /* your theme likely sets this already */
-    text-align: left;
-  }
-}
-
-
-@media (min-width: 992px) {
-  #header .navbar { margin-left: 0 !important; }
-}
 
 
 
