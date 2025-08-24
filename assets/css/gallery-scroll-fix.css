@@ -1,0 +1,43 @@
+
+/* Gallery Scroll Fix (desktop)
+   Load this AFTER your theme's main CSS.
+   Ensures the page scrolls and gallery isn't trapped in a fixed-height wrapper.
+*/
+
+/* Always keep a vertical scrollbar on desktop to avoid layout jumps */
+@media (min-width: 992px) {
+  html { overflow-y: scroll; }
+}
+
+/* If any template class disables scroll on desktop, undo it */
+@media (min-width: 992px) {
+  html, body {
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+
+  /* Some themes set this on mobile and forget to remove it on resize */
+  body.mobile-nav-active {
+    overflow: auto !important;
+  }
+
+  /* Let the main wrapper and gallery section grow naturally */
+  #main, main, #gallery, section.gallery, .gallery {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Containers/rows should not clip their children vertically */
+  .gallery .container, .gallery .container-fluid, .gallery .row {
+    overflow: visible !important;
+  }
+
+  /* Keep the crop on individual items only (safe) */
+  .gallery .gallery-item {
+    overflow: hidden; /* image crop only, not the whole page */
+  }
+}
+
+/* Optional: keep space for scrollbar to prevent layout shift (modern browsers) */
+:root { scrollbar-gutter: stable both-edges; }
