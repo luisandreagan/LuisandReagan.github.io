@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents Library — PhotoFolio</title>
+
+  <!-- Vendor CSS (PhotoFolio standard) -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    /* Page-specific touches that fit PhotoFolio's aesthetic */
+    .doc-card {
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,.25);
+      background: #0b1220;
+      padding: 1rem;
+    }
+    .doc-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: .75rem;
+      align-items: center;
+      padding: .75rem .5rem;
+      border-bottom: 1px dashed rgba(148,163,184,.25);
+    }
+    .doc-row:last-child { border-bottom: 0; }
+    .doc-name {
+      font-weight: 600;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .doc-tag { font-size: .8rem; color: #94a3b8; }
+    @media (max-width: 576px) {
+      .doc-row { grid-template-columns: 1fr; }
+      .doc-actions { justify-content: start !important; }
+    }
+    .search-input {
+      border-radius: 999px;
+      padding: .8rem 1rem;
+    }
+  </style>
+</head>
+
+<body class="index-page">
+  <!-- ======= Header / Navbar (loaded from partial) ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+        <i class="bi bi-camera"></i>
+        <h1>PhotoFolio</h1>
+      </a>
+
+      <!-- Placeholder; will be replaced by navbar include if you use partials/navbar.html -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="DominicanRepublic2019.html">Dominican Republic 2019</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="active">Documents</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-social-links">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      </div>
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+    </div>
+  </header>
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center">
+    <div class="container position-relative">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2>Documents Library</h2>
+          <p>View or download your Car, Household, and Pilot PDFs.</p>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- Search -->
+    <section class="py-2">
+      <div class="container">
+        <input id="docSearch" class="form-control search-input" type="search" placeholder="Search by name (e.g., insurance, warranty, logbook)…" aria-label="Search documents">
+        <div class="form-text">Tip: Download works best when PDFs are hosted on the same domain as this page.</div>
+      </div>
+    </section>
+
+    <!-- Car -->
+    <section class="gallery-single py-2">
+      <div class="container">
+        <div class="section-header">
+          <h2>Car</h2>
+        </div>
+        <div class="doc-card" data-section="car">
+          <!-- Replace href URLs with your actual PDF links -->
+          <div class="doc-row" data-name="Car Insurance">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Car Insurance</div>
+              <div class="doc-tag">PDF • Car</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/car/insurance.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/car/insurance.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="doc-row" data-name="Car Registration">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Car Registration</div>
+              <div class="doc-tag">PDF • Car</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/car/registration.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/car/registration.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="doc-row" data-name="Owner’s Manual">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Owner’s Manual</div>
+              <div class="doc-tag">PDF • Car</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/car/manual.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/car/manual.pdf" download>Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Household -->
+    <section class="gallery-single py-2">
+      <div class="container">
+        <div class="section-header">
+          <h2>Household Items</h2>
+        </div>
+        <div class="doc-card" data-section="household">
+          <div class="doc-row" data-name="Warranty Documents">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Warranty Documents</div>
+              <div class="doc-tag">PDF • Household</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/house/warranty.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/house/warranty.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="doc-row" data-name="Appliance Manual">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Appliance Manual</div>
+              <div class="doc-tag">PDF • Household</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/house/appliance.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/house/appliance.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="doc-row" data-name="Home Insurance">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Home Insurance</div>
+              <div class="doc-tag">PDF • Household</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/house/insurance.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/house/insurance.pdf" download>Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pilot -->
+    <section class="gallery-single py-2">
+      <div class="container">
+        <div class="section-header">
+          <h2>Pilot Documents</h2>
+        </div>
+        <div class="doc-card" data-section="pilot">
+          <div class="doc-row" data-name="Private Pilot License">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Private Pilot License</div>
+              <div class="doc-tag">PDF • Pilot</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/pilot/ppl_certificate.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/pilot/ppl_certificate.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="doc-row" data-name="Instrument Rating">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Instrument Rating</div>
+              <div class="doc-tag">PDF • Pilot</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/pilot/ifr_rating.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/pilot/ifr_rating.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="doc-row" data-name="Medical Certificate">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Medical Certificate</div>
+              <div class="doc-tag">PDF • Pilot</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/pilot/medical.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/pilot/medical.pdf" download>Download</a>
+            </div>
+          </div>
+
+          <div class="doc-row" data-name="Flight Logbook">
+            <div>
+              <div class="doc-name"><i class="bi bi-file-earmark-pdf me-1"></i> Flight Logbook</div>
+              <div class="doc-tag">PDF • Pilot</div>
+            </div>
+            <div class="doc-actions d-flex gap-2 justify-content-end">
+              <a class="btn btn-outline-light btn-sm" href="/files/pilot/logbook.pdf" target="_blank" rel="noopener">View</a>
+              <a class="btn btn-primary btn-sm" href="/files/pilot/logbook.pdf" download>Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; <strong><span>PhotoFolio</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed with <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vendor JS Files (PhotoFolio standard) -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Optional: load navbar from partials/navbar.html if present -->
+  <script>
+    (async () => {
+      try {
+        const res = await fetch('partials/navbar.html', {cache: 'no-store'});
+        if (res.ok) {
+          const html = await res.text();
+          const nav = document.getElementById('navbar');
+          if (nav) nav.outerHTML = html;
+          // Mark this page active if your partial uses an 'Documents' link
+          const links = document.querySelectorAll('#navbar a');
+          links.forEach(a => {
+            if (/documents/i.test(a.textContent || '')) a.classList.add('active');
+          });
+        }
+      } catch(e) {}
+    })();
+
+    // Simple live filter by name
+    const input = document.getElementById('docSearch');
+    input.addEventListener('input', () => {
+      const t = input.value.trim().toLowerCase();
+      document.querySelectorAll('.doc-row').forEach(row => {
+        const name = (row.getAttribute('data-name') || '').toLowerCase();
+        row.style.display = name.includes(t) ? '' : 'none';
+      });
+    });
+
+    // Ensure download attribute has a filename; if not, infer from URL
+    document.querySelectorAll('a[download]').forEach(a => {
+      if (!a.getAttribute('download')) {
+        try {
+          const u = new URL(a.href, location.href);
+          const fname = u.pathname.split('/').pop();
+          if (fname) a.setAttribute('download', fname);
+        } catch {}
+      }
+    });
+  </script>
+</body>
+</html>
