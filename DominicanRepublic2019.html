@@ -46,16 +46,16 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("navbar-container");
 
-  if (sessionStorage.getItem("navbar")) {
-    container.innerHTML = sessionStorage.getItem("navbar");
+  if (sessionStorage.getItem("navbar2")) {
+    container.innerHTML = sessionStorage.getItem("navbar2");
   } else {
     try {
-      const response = await fetch("navbar.html");
+      const response = await fetch("navbar2.html");
       const data = await response.text();
       container.innerHTML = data;
-      sessionStorage.setItem("navbar", data);
+      sessionStorage.setItem("navbar2", data);
     } catch (error) {
-      console.error("Error loading navbar:", error);
+      console.error("Error loading navbar2:", error);
     }
   }
 });

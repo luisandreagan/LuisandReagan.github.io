@@ -306,6 +306,47 @@ document.addEventListener("DOMContentLoaded", async () => {
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/photofolio-bootstrap-photography-website-template/ -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    <a href="Documents.html" id="docs-link">Documents</a>
+
+<script>
+const hexPassword = "50617373776F7264"; // "mySecret123"
+
+function decodeHex(hex) {
+  return hex
+    .match(/.{1,2}/g)
+    .map(byte => String.fromCharCode(parseInt(byte, 16)))
+    .join('');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const link = document.getElementById('docs-link');
+  if (!link) return;
+
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (sessionStorage.getItem('docsAccess') === 'granted') {
+      window.location.href = 'Documents.html';
+      return;
+    }
+
+    const pw = prompt('Enter password to view Documents:');
+    if (pw === null) return;
+
+    const decoded = decodeHex(hexPassword);
+    if (pw === decoded) {
+      sessionStorage.setItem('docsAccess', 'granted');
+      window.location.href = 'Documents.html';
+    } else {
+      alert('Incorrect password.');
+    }
+  });
+});
+</script>
+
+
+
+
       </div>
     </div>
   </footer><!-- End Footer -->
