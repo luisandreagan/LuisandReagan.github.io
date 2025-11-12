@@ -57,146 +57,16 @@
 <div id="navbar-container"></div>
 
 <script>
-(async () => {
-  const container = document.getElementById("navbar-container");
+  // Static synchronous include for maximum reliability on mobile
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "navbar.html", false); // false = synchronous
+  xhr.send(null);
 
-  async function loadNavbar() {
-    const cached = sessionStorage.getItem("navbar");
-    if (cached) {
-      container.innerHTML = cached;
-      runInlineScripts(container).then(initNavbar);
-      return;
-    }
-
-    try {
-      const response = await fetch("navbar.html", { cache: "no-store" });
-      if (!response.ok) throw new Error("Failed to load navbar");
-      const data = await response.text();
-      container.innerHTML = data;
-      sessionStorage.setItem("navbar", data);
-      await runInlineScripts(container);
-      initNavbar();
-    } catch (error) {
-      console.error("Error loading navbar:", error);
-    }
-  }
-
-  // Execute <script> tags inside the injected markup (handles src & inline)
-  async function runInlineScripts(parent) {
-    const scripts = Array.from(parent.querySelectorAll("script"));
-    for (const oldScript of scripts) {
-      const newScript = document.createElement("script");
-
-      // copy attributes (type/module/nomodule/defer if present)
-      for (const attr of oldScript.attributes) {
-        newScript.setAttribute(attr.name, attr.value);
-      }
-
-      if (oldScript.src) {
-        // load external scripts sequentially to preserve order
-        await new Promise((resolve, reject) => {
-          newScript.src = oldScript.src;
-          newScript.onload = resolve;
-          newScript.onerror = () => {
-            console.warn("Failed loading navbar script:", oldScript.src);
-            resolve(); // resolve anyway so rest can run
-          };
-          document.body.appendChild(newScript);
-        });
-      } else {
-        // inline script
-        newScript.textContent = oldScript.textContent;
-        document.body.appendChild(newScript);
-      }
-
-      // remove the original script tag in the injected markup to avoid duplication
-      oldScript.remove();
-    }
-  }
-
-  // Initialize dropdowns / collapse toggles (Bootstrap 5 aware, fallback for custom)
-  function initNavbar() {
-    // 1) Bootstrap 5 initialization if available
-    if (window.bootstrap) {
-      try {
-        // Initialize dropdowns
-        const ddToggles = container.querySelectorAll('.dropdown-toggle');
-        ddToggles.forEach(el => {
-          // remove existing instance if any (avoid duplicates)
-          if (el.__bootstrapDropdown) {
-            try { el.__bootstrapDropdown.dispose(); } catch(e){ }
-          }
-          const inst = new bootstrap.Dropdown(el);
-          el.__bootstrapDropdown = inst;
-        });
-
-        // Initialize collapses (navbar toggler)
-        const collapseEls = container.querySelectorAll('.collapse');
-        collapseEls.forEach(el => {
-          if (!bootstrap.Collapse) return;
-          // If already has instance, skip
-          if (!el.__bootstrapCollapse) {
-            el.__bootstrapCollapse = new bootstrap.Collapse(el, { toggle: false });
-          }
-        });
-      } catch (e) {
-        console.warn("Bootstrap init error:", e);
-      }
-    }
-
-    // 2) Fallback generic dropdown/collapse for non-Bootstrap or custom behaviour
-    // Dropdown: click .dropdown-toggle to toggle nearest .dropdown-menu
-    const simpleToggles = container.querySelectorAll('.dropdown-toggle:not([data-nav-initialized])');
-    simpleToggles.forEach(btn => {
-      btn.setAttribute('data-nav-initialized', 'true');
-      btn.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        const parent = btn.closest('.dropdown') || btn.parentElement;
-        if (!parent) return;
-        const menu = parent.querySelector('.dropdown-menu');
-        if (!menu) return;
-        menu.classList.toggle('show');
-        parent.classList.toggle('show');
-      });
-    });
-
-    // Clicking outside closes any open menus (mobile-friendly)
-    document.addEventListener('click', (ev) => {
-      const openMenus = container.querySelectorAll('.dropdown-menu.show');
-      openMenus.forEach(menu => {
-        // if click inside menu or its toggle, skip
-        if (menu.contains(ev.target) || (menu.previousElementSibling && menu.previousElementSibling.contains(ev.target))) return;
-        menu.classList.remove('show');
-        const p = menu.closest('.dropdown');
-        if (p) p.classList.remove('show');
-      });
-    }, { passive: true });
-
-    // Simple collapse toggler fallback: elements with .navbar-toggler and data-target
-    const togglers = container.querySelectorAll('.navbar-toggler:not([data-nav-init])');
-    togglers.forEach(t => {
-      t.setAttribute('data-nav-init', 'true');
-      t.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        const targetSel = t.getAttribute('data-target') || t.getAttribute('data-bs-target') || t.dataset.target;
-        const target = targetSel ? document.querySelector(targetSel) : t.nextElementSibling;
-        if (!target) return;
-        target.classList.toggle('show'); // you can style .show for mobile visibility
-      });
-    });
-  }
-
-  // Wait for document readiness (mobile-safe)
-  if (document.readyState === "loading") {
-    document.addEventListener("readystatechange", () => {
-      if (document.readyState === "interactive" || document.readyState === "complete") {
-        loadNavbar();
-      }
-    });
+  if (xhr.status === 200) {
+    document.getElementById("navbar-container").innerHTML = xhr.responseText;
   } else {
-    loadNavbar();
+    console.error("Failed to load navbar:", xhr.status);
   }
-})();
 </script>
 
 
