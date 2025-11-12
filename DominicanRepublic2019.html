@@ -40,13 +40,25 @@
         <h1>Luis And Reagan</h1>
       </a>
 
-    <script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar-container").innerHTML = data;
-    })
-    .catch(error => console.error("Error loading navbar:", error));
+<div id="navbar-container"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById("navbar-container");
+
+  if (sessionStorage.getItem("navbar")) {
+    container.innerHTML = sessionStorage.getItem("navbar");
+  } else {
+    try {
+      const response = await fetch("navbar.html");
+      const data = await response.text();
+      container.innerHTML = data;
+      sessionStorage.setItem("navbar", data);
+    } catch (error) {
+      console.error("Error loading navbar:", error);
+    }
+  }
+});
 </script>
 
       <div class="header-social-links">
