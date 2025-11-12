@@ -30,44 +30,9 @@
         <li><a href="Dubai2024.html">Dubai 2024</a></li>
         <li><a href="KendraNick.html">Kendra Nick</a></li>
         <li><a href="StCroix2025.html">StCroix2025</a></li>
-        <li><a href="Documents.html">Documents</a></li>
-<!-- navbar fragment -->
-<li><a href="Documents.html" id="docs-link">Documents test</a></li>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const link = document.getElementById('docs-link');
-  if (!link) return;
-
-  link.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    // If previously granted in this session, go straight there
-    if (sessionStorage.getItem('docsAccess') === 'granted') {
-      window.location.href = 'Documents.html';
-      return;
-    }
-
-    const pw = prompt('Enter password to view Documents:');
-    if (pw === null) {
-      // user cancelled
-      return;
-    }
-    // Change this to your password
-    if (pw === '123') {
-      sessionStorage.setItem('docsAccess', 'granted'); // remembers until tab close
-      window.location.href = 'Documents.html';
-    } else {
-      alert('Incorrect password.');
-    }
-  });
-});
-</script>
 
 
-
-
-<li><a href="Documents.html" id="docs-link">Documents-hex</a></li>
+        <li><a href="Documents.html" id="docs-link">Documents-hex</a></li>
 
 <script>
 const hexPassword = "50617373776F7264"; // "mySecret123"
