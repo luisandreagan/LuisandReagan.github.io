@@ -57,22 +57,56 @@
 <div id="navbar-container"></div>
 
 <script>
-document.addEventListener("DOMContentLoaded", async () => {
+(async () => {
   const container = document.getElementById("navbar-container");
 
-  if (sessionStorage.getItem("navbar")) {
-    container.innerHTML = sessionStorage.getItem("navbar");
-  } else {
+  async function loadNavbar() {
+    const cached = sessionStorage.getItem("navbar");
+
+    if (cached) {
+      container.innerHTML = cached;
+      runInlineScripts(container);
+      return;
+    }
+
     try {
-      const response = await fetch("navbar.html");
+      const response = await fetch("navbar.html", { cache: "no-store" });
+      if (!response.ok) throw new Error("Failed to load navbar");
       const data = await response.text();
       container.innerHTML = data;
       sessionStorage.setItem("navbar", data);
+      runInlineScripts(container);
     } catch (error) {
       console.error("Error loading navbar:", error);
     }
   }
-});
+
+  // Safely run any <script> tags inside the loaded navbar
+  function runInlineScripts(parent) {
+    const scripts = parent.querySelectorAll("script");
+    scripts.forEach(oldScript => {
+      const newScript = document.createElement("script");
+      if (oldScript.src) {
+        newScript.src = oldScript.src;
+      } else {
+        newScript.textContent = oldScript.textContent;
+      }
+      document.body.appendChild(newScript);
+      oldScript.remove();
+    });
+  }
+
+  // Wait for document to be fully ready (mobile-safe)
+  if (document.readyState === "loading") {
+    document.addEventListener("readystatechange", () => {
+      if (document.readyState === "interactive" || document.readyState === "complete") {
+        loadNavbar();
+      }
+    });
+  } else {
+    loadNavbar();
+  }
+})();
 </script>
 
 
