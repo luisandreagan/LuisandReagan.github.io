@@ -1,6 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<script>
+const hexPassword = "50617373776F7264";
+
+function decodeHex(hex) {
+  return hex
+    .match(/.{1,2}/g)
+    .map(byte => String.fromCharCode(parseInt(byte, 16)))
+    .join('');
+}
+
+(function(){
+  if (sessionStorage.getItem('docsAccess') === 'granted') return;
+
+  const pw = prompt('Enter password to view Documents:');
+  if (pw === null) {
+    history.back();
+    return;
+  }
+
+  const decoded = decodeHex(hexPassword);
+  if (pw === decoded) {
+    sessionStorage.setItem('docsAccess', 'granted');
+  } else {
+    alert('Incorrect password.');
+    history.back();
+  }
+})();
+</script>
+
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documents Library — PhotoFolio</title>
