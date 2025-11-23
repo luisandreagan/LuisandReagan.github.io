@@ -89,15 +89,20 @@ function decodeHex(hex) {
 
       <!-- Placeholder; will be replaced by navbar include if you use partials/navbar.html -->
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="DominicanRepublic2019.html">Dominican Republic 2019</a></li>
-            </ul>
-          </li>
-          <li><a href="#" class="active">Documents</a></li>
-        </ul>
+              <div id="navbar-container"></div>
+
+<script>
+  // Static synchronous include for maximum reliability on mobile
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "navbar.html", false); // false = synchronous
+  xhr.send(null);
+
+  if (xhr.status === 200) {
+    document.getElementById("navbar-container").innerHTML = xhr.responseText;
+  } else {
+    console.error("Failed to load navbar:", xhr.status);
+  }
+</script>
       </nav>
 
       <div class="header-social-links">
