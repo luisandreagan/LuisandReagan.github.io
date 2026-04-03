@@ -894,19 +894,20 @@
 
         </div></div></section><!-- End Gallery Section -->
 
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>PhotoFolio</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
+<div id="footer-container"></div>
+
+<script>
+  fetch("footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-container").innerHTML = data;
+    })
+    .catch(error => console.error("Error loading footer:", error));
+</script>
 
   <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
