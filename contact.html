@@ -102,8 +102,24 @@
     </div>
   </div>
 
+    <!-- Travel Type Dropdown -->
+ 
+
   <div class="form-group mt-3">
     <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+  </div>
+
+  <div class="form-group mt-3">
+     <label for="travel">Select Travel Type:</label>
+  <select name="travel_type" id="travel" required>
+    <option value="">-- Choose an option --</option>
+    <option value="Cruise">Cruise</option>
+    <option value="Road Trip">Road Trip</option>
+    <option value="Flight">Flight</option>
+    <option value="Flight">Resort</option>
+  </select>
+
+
   </div>
 
   <div class="form-group mt-3">
@@ -113,9 +129,12 @@
   <input type="hidden" name="_subject" value="New Contact Form Submission">
   <input type="hidden" name="_redirect" value="index.html">
 
+  <input type="hidden" name="captcha" value="true">
+
   <div class="text-center mt-3">
     <button type="submit">Send Message</button>
   </div>
+
 
 
 </form>
