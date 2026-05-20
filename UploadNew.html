@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Upload Files</title>
+
+<style>
+
+body{
+  margin:0;
+  background:#0f0f0f;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:40px 20px;
+  text-align:center;
+}
+
+h1{
+  margin-bottom:30px;
+}
+
+.upload-label{
+  display:inline-block;
+  background:#0d6efd;
+  color:white;
+  padding:22px 50px;
+  font-size:24px;
+  font-weight:bold;
+  border-radius:14px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.upload-label:hover{
+  opacity:0.9;
+}
+
+.upload-btn{
+  margin-top:20px;
+  background:#198754;
+  color:white;
+  border:none;
+  padding:18px 40px;
+  font-size:20px;
+  font-weight:bold;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.upload-btn:hover{
+  opacity:0.9;
+}
+
+.view-btn{
+  display:inline-block;
+  margin-top:20px;
+  margin-left:10px;
+  background:#6c757d;
+  color:white;
+  text-decoration:none;
+  padding:18px 40px;
+  font-size:20px;
+  font-weight:bold;
+  border-radius:12px;
+  transition:0.2s;
+}
+
+.view-btn:hover{
+  opacity:0.9;
+}
+
+.status{
+  margin-top:30px;
+  text-align:left;
+}
+
+.file-status{
+  background:#1b1b1b;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+  font-size:14px;
+}
+
+.progress{
+  height:10px;
+  background:#333;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#0d6efd;
+  transition:0.2s;
+}
+
+.success{
+  color:#00d26a;
+}
+
+.error{
+  color:#ff4d4d;
+}
+
+.selected-files{
+  margin-top:20px;
+  color:#ccc;
+  font-size:14px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Upload Pictures & Videos</h1>
+
+  <!-- BIG FILE BUTTON -->
+
+  <label class="upload-label">
+    Choose Files
+    <input
+      type="file"
+      id="fileInput"
+      multiple
+      hidden
+    >
+  </label>
+
+  <br>
+
+  <!-- BUTTONS -->
+
+  <button
+    class="upload-btn"
+    onclick="uploadFiles()"
+  >
+    Upload Files
+  </button>
+
+  <a
+    href="display_user.html"
+    class="view-btn"
+  >
+    View Uploads
+  </a>
+
+  <div
+    id="selectedFiles"
+    class="selected-files"
+  ></div>
+
+  <div
+    id="status"
+    class="status"
+  ></div>
+
+</div>
+
+<script>
+
+const API_URL =
+  'https://sparkling-darkness-3cbb.luisandreagan.workers.dev/'
+
+const fileInput =
+  document.getElementById('fileInput')
+
+const selectedFiles =
+  document.getElementById('selectedFiles')
+
+fileInput.addEventListener(
+  'change',
+  ()=>{
+    if(fileInput.files.length){
+
+      selectedFiles.innerHTML =
+        `${fileInput.files.length} file(s) selected`
+
+    } else {
+
+      selectedFiles.innerHTML = ''
+
+    }
+  }
+)
+
+async function uploadFiles(){
+
+  const files =
+    fileInput.files
+
+  const statusDiv =
+    document.getElementById('status')
+
+  statusDiv.innerHTML = ''
+
+  if(!files.length){
+
+    alert(
+      'Please choose files first.'
+    )
+
+    return
+
+  }
+
+  for(const file of files){
+
+    const fileBox =
+      document.createElement('div')
+
+    fileBox.className =
+      'file-status'
+
+    fileBox.innerHTML = `
+
+      <div>
+        Uploading:
+        ${file.name}
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar"></div>
+      </div>
+
+      <div class="message">
+        Starting upload...
+      </div>
+
+    `
+
+    statusDiv.appendChild(fileBox)
+
+    const progressBar =
+      fileBox.querySelector(
+        '.progress-bar'
+      )
+
+    const message =
+      fileBox.querySelector(
+        '.message'
+      )
+
+    try{
+
+      const formData =
+        new FormData()
+
+      formData.append(
+        'file',
+        file
+      )
+
+      const xhr =
+        new XMLHttpRequest()
+
+      xhr.open(
+        'POST',
+        API_URL
+      )
+
+      xhr.upload.onprogress =
+        (e)=>{
+
+          if(e.lengthComputable){
+
+            const percent =
+              (
+                e.loaded /
+                e.total
+              ) * 100
+
+            progressBar.style.width =
+              percent + '%'
+
+          }
+
+        }
+
+      xhr.onload = ()=>{
+
+        if(xhr.status === 200){
+
+          progressBar.style.width =
+            '100%'
+
+          message.innerHTML =
+            `<span class="success">
+              Upload complete
+            </span>`
+
+        } else {
+
+          message.innerHTML =
+            `<span class="error">
+              Upload failed
+            </span>`
+
+        }
+
+      }
+
+      xhr.onerror = ()=>{
+
+        message.innerHTML =
+          `<span class="error">
+            Upload error
+          </span>`
+
+      }
+
+      xhr.send(formData)
+
+    } catch(err){
+
+      console.error(err)
+
+      message.innerHTML =
+        `<span class="error">
+          Upload failed
+        </span>`
+
+    }
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
