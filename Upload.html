@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Upload Files</title>
+
+<style>
+
+body{
+  margin:0;
+  background:#0f0f0f;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.upload-box{
+  border:2px dashed #444;
+  padding:40px;
+  text-align:center;
+  border-radius:12px;
+  background:#1b1b1b;
+}
+
+input[type=file]{
+  margin-top:20px;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 24px;
+  border:none;
+  background:#0d6efd;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+#uploads{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#1b1b1b;
+  border-radius:12px;
+  padding:15px;
+}
+
+.preview{
+  width:100%;
+  border-radius:10px;
+  margin-top:10px;
+  max-height:250px;
+  object-fit:cover;
+}
+
+.progress{
+  width:100%;
+  height:10px;
+  background:#333;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#0d6efd;
+}
+
+.status{
+  margin-top:10px;
+  font-size:14px;
+  color:#ccc;
+  word-break:break-all;
+}
+
+a{
+  color:#4da3ff;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>Upload Photos & Videos</h1>
+
+  <div class="upload-box">
+
+    <p>Select one or multiple files</p>
+
+    <input
+      type="file"
+      id="fileInput"
+      multiple
+      accept="image/*,video/*"
+    >
+
+    <br>
+
+    <button onclick="uploadFiles()">
+      Upload Files
+    </button>
+
+  </div>
+
+  <div id="uploads"></div>
+
+</div>
+
+<script>
+
+const WORKER_URL =
+  'https://sparkling-darkness-3cbb.luisandreagan.workers.dev/'
+
+async function uploadFiles(){
+
+  const fileInput =
+    document.getElementById('fileInput')
+
+  const uploads =
+    document.getElementById('uploads')
+
+  if(!fileInput.files.length){
+    alert('Select files first')
+    return
+  }
+
+  for(const file of fileInput.files){
+
+    const card =
+      document.createElement('div')
+
+    card.className = 'card'
+
+    card.innerHTML = `
+      <strong>${file.name}</strong>
+
+      <div class="progress">
+        <div class="progress-bar"></div>
+      </div>
+
+      <div class="status">
+        Preparing upload...
+      </div>
+    `
+
+    uploads.prepend(card)
+
+    const progressBar =
+      card.querySelector('.progress-bar')
+
+    const status =
+      card.querySelector('.status')
+
+    const formData =
+      new FormData()
+
+    formData.append('file', file)
+
+    const xhr =
+      new XMLHttpRequest()
+
+    xhr.open(
+      'POST',
+      WORKER_URL
+    )
+
+    xhr.upload.addEventListener(
+      'progress',
+      (e)=>{
+
+        if(e.lengthComputable){
+
+          const percent =
+            (e.loaded / e.total) * 100
+
+          progressBar.style.width =
+            percent + '%'
+
+          status.innerHTML =
+            'Uploading ' +
+            Math.round(percent) +
+            '%'
+
+        }
+
+      }
+    )
+
+    xhr.onload = ()=>{
+
+      try{
+
+        const data =
+          JSON.parse(xhr.responseText)
+
+        if(xhr.status === 200 && data.success){
+
+          status.innerHTML = `
+            Upload Complete
+            <br><br>
+            <a href="${data.url}" target="_blank">
+              Open File
+            </a>
+          `
+
+          // IMAGE PREVIEW
+          if(
+            file.type.startsWith('image/')
+          ){
+
+            const img =
+              document.createElement('img')
+
+            img.src = data.url
+
+            img.className = 'preview'
+
+            card.appendChild(img)
+
+          }
+
+          // VIDEO PREVIEW
+          else if(
+            file.type.startsWith('video/')
+          ){
+
+            const video =
+              document.createElement('video')
+
+            video.src = data.url
+
+            video.controls = true
+
+            video.className = 'preview'
+
+            card.appendChild(video)
+
+          }
+
+        }else{
+
+          status.innerHTML =
+            'Upload Failed'
+
+        }
+
+      }catch(err){
+
+        status.innerHTML =
+          'Error parsing response'
+
+      }
+
+    }
+
+    xhr.onerror = ()=>{
+
+      status.innerHTML =
+        'Upload Error'
+
+    }
+
+    xhr.send(formData)
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
