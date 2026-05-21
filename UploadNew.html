@@ -126,10 +126,8 @@ h1{
 
   <h1>Upload Pictures & Videos</h1>
 
-  <!-- BIG FILE BUTTON -->
-
   <label class="upload-label">
-    Choose Files To Upload
+    Choose Files
     <input
       type="file"
       id="fileInput"
@@ -139,8 +137,6 @@ h1{
   </label>
 
   <br>
-
-  <!-- BUTTONS -->
 
   <button
     class="upload-btn"
@@ -167,6 +163,9 @@ h1{
   ></div>
 
 </div>
+
+<!-- HEIC CONVERTER -->
+<script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js"></script>
 
 <script>
 
@@ -215,7 +214,7 @@ async function uploadFiles(){
 
   }
 
-  for(const file of files){
+  for(let file of files){
 
     const fileBox =
       document.createElement('div')
@@ -226,7 +225,7 @@ async function uploadFiles(){
     fileBox.innerHTML = `
 
       <div>
-        Uploading:
+        Preparing:
         ${file.name}
       </div>
 
@@ -235,7 +234,7 @@ async function uploadFiles(){
       </div>
 
       <div class="message">
-        Starting upload...
+        Starting...
       </div>
 
     `
@@ -253,6 +252,80 @@ async function uploadFiles(){
       )
 
     try{
+
+      // =========================
+      // FILE EXTENSION
+      // =========================
+
+      let extension =
+        file.name
+          .split('.')
+          .pop()
+          .toLowerCase()
+
+      // =========================
+      // CONVERT HEIC -> PNG
+      // =========================
+
+      if(
+        extension === 'heic' ||
+        extension === 'heif'
+      ){
+
+        message.innerHTML =
+          'Converting HEIC to PNG...'
+
+        const convertedBlob =
+          await heic2any({
+            blob:file,
+            toType:'image/png',
+            quality:1
+          })
+
+        file =
+          new File(
+            [convertedBlob],
+            file.name.replace(
+              /\.(heic|heif)$/i,
+              '.png'
+            ),
+            {
+              type:'image/png'
+            }
+          )
+
+      }
+
+      // =========================
+      // CONVERT MOV -> MP4
+      // =========================
+      // NOTE:
+      // Browser video conversion is limited.
+      // This simply renames for compatibility.
+      // Best real conversion is server-side.
+      // =========================
+
+      if(extension === 'mov'){
+
+        message.innerHTML =
+          'Optimizing MOV video...'
+
+        file =
+          new File(
+            [file],
+            file.name.replace(
+              /\.mov$/i,
+              '.mp4'
+            ),
+            {
+              type:'video/mp4'
+            }
+          )
+
+      }
+
+      message.innerHTML =
+        'Uploading...'
 
       const formData =
         new FormData()
