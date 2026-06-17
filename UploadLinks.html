@@ -65,6 +65,80 @@
           </div>
         </li>
 
+
+       <!-- 
+         <li>
+          <div>
+            <a class="site" href="Greada_2026_Uploads.html" target="_blank" rel="noopener noreferrer">Greada_2026</a>
+            <div class="meta">Greada_2026</div>
+          </div>
+          <div class="actions">
+            <button class="copy" data-url="Greada_2026_Uploads.html">Share Link</button>
+          </div>
+        </li>
+      -->
+
+
+
+
+
+
+
+<li>
+  <div>
+    <a class="site" href="#" onclick="checkPassword(event, 'Greada_2026_Uploads.html')" 
+       target="_blank" rel="noopener noreferrer">
+      Pending_2026
+    </a>
+    <div class="meta">Pending_2026</div>
+  </div>
+
+  <div class="actions">
+    <button class="copy" data-url="Greada_2026_Uploads.html">Share Link</button>
+  </div>
+</li>
+
+<script>
+  function hexToString(hex) {
+    return hex.match(/.{1,2}/g)
+      .map(byte => String.fromCharCode(parseInt(byte, 16)))
+      .join('');
+  }
+
+  function checkPassword(e, url) {
+    e.preventDefault();
+
+    const input = prompt("Enter password to access this page:");
+
+    const storedHexPassword = "74726176656c"; // "travel"
+
+    const decoded = hexToString(storedHexPassword);
+
+    if (input === decoded) {
+      window.open(url, "_blank");
+    } else {
+      alert("Incorrect password.");
+    }
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <li>
           <div>
             <a class="site" href="https://www.dropbox.com/request/zKipAfugesE9Sm5QfjMZ" target="_blank" rel="noopener noreferrer">Don't see your Trip? Upload Here</a>
